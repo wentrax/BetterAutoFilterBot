@@ -2,15 +2,16 @@ import random
 import string
 import asyncio
 
-from pyrogram import Client, filters
+from pyrogram import Client, filters, enums
 from pyrogram.errors import UserAlreadyParticipant, FloodWait
 
-from bot import VERIFY # pylint: disable=import-error
+from bot import VERIFY, LOGGER # pylint: disable=import-error
 from bot.bot import Bot # pylint: disable=import-error
 from bot.database import Database # pylint: disable=import-error
 from bot.plugins.auto_filter import recacher # pylint: disable=import-error
 
 db = Database()
+logger = LOGGER(__name__)
 
 @Client.on_message(filters.command(["add"]) & filters.group, group=1)
 async def connect(bot: Bot, update):
@@ -24,7 +25,7 @@ async def connect(bot: Bot, update):
     
     if VERIFY.get(str(chat_id)) == None: # Make Admin's ID List
         admin_list = []
-        async for x in bot.iter_chat_members(chat_id=chat_id, filter="administrators"):
+        async for x in bot.get_chat_members(chat_id=chat_id, filter=enums.ChatMembersFilter.ADMINISTRATORS):
             admin_id = x.user.id 
             admin_list.append(admin_id)
         admin_list.append(None)
@@ -50,25 +51,26 @@ async def connect(bot: Bot, update):
         await update.reply_text("Invalid Input...\nYou Should Specify Valid <code>chat_id(-100xxxxxxxxxx)</code> or <code>@username</code>")
         return
     
+    # Exports invite link from target channel for user to join
     try:
         join_link = await bot.export_chat_invite_link(target)
+        join_link = join_link.replace('+', 'joinchat/')
     except Exception as e:
-        print(e)
-        await update.reply_text(f"Make Sure Im Admin At <code>{target}</code> And Have Permission For '<i>Inviting Users via Link</i>' And Try Again.....!!!")
+        logger.exception(e, exc_info=True)
+        await update.reply_text(f"Make Sure Im Admin At <code>{target}</code> And Have Permission For <i>Inviting Users via Link</i> And Try Again.....!!!\n\n<i><b>Error Logged:</b></i> <code>{e}</code>", parse_mode='html')
         return
     
     userbot_info = await bot.USER.get_me()
-    userbot_id = userbot_info.id
-    userbot_name = userbot_info.first_name
     
+    # Joins to targeted chat using above exported invite link
+    # If aldready joined, code just pass on to next code
     try:
         await bot.USER.join_chat(join_link)
-        
     except UserAlreadyParticipant:
         pass
-    
-    except Exception:
-        await update.reply_text(f"My UserBot [{userbot_name}](tg://user?id={userbot_id}) Couldnt Join The Channel `{target}` Make Sure Userbot Is Not Banned There Or Add It Manually And Try Again....!!")
+    except Exception as e:
+        logger.exception(e, exc_info=True)
+        await update.reply_text(f"{userbot_info.mention} Couldnt Join The Channel <code>{target}</code> Make Sure Userbot Is Not Banned There Or Add It Manually And Try Again....!!\n\n<i><b>Error Logged:</b></i> <code>{e}</code>", parse_mode='html')
         return
     
     try:
@@ -90,26 +92,28 @@ async def connect(bot: Bot, update):
     wait_msg = await update.reply_text("Please Wait Till I Add All Your Files From Channel To Db\n\n<i>This May Take 10 or 15 Mins Depending On Your No. Of Files In Channel.....</i>\n\nUntil Then Please Dont Sent Any Other Command Or This Operation May Be Intrupted....")
     
     try:
-        type_list = ["video", "audio", "document"]
+        mf = enums.MessagesFilter
+        type_list = [mf.VIDEO, mf.DOCUMENT, mf.AUDIO]
         data = []
         skipCT = 0
         
         for typ in type_list:
 
-            async for msgs in bot.USER.search_messages(channel_id,filter=typ): #Thanks To @PrgOfficial For Suggesting
+            async for msgs in bot.USER.search_messages(channel_id, filter=typ): #Thanks To @PrgOfficial For Suggesting
                 
                 # Using 'if elif' instead of 'or' to determine 'file_type'
                 # Better Way? Make A PR
                 try:
+                    try:
+                        file_id = await bot.get_messages(channel_id, message_ids=msgs.id)
+                    except FloodWait as e:
+                        await asyncio.sleep(e.value)
+                        file_id = await bot.get_messages(channel_id, message_ids=msgs.id)
+                    except Exception as e:
+                        print(e)
+                        continue
+
                     if msgs.video:
-                        try:
-                            file_id = await bot.get_messages(channel_id, message_ids=msgs.message_id)
-                        except FloodWait as e:
-                            asyncio.sleep(e.x)
-                            file_id = await bot.get_messages(channel_id, message_ids=msgs.message_id)
-                        except Exception as e:
-                            print(e)
-                            continue
                         file_id = file_id.video.file_id
                         file_name = msgs.video.file_name[0:-4]
                         file_caption  = msgs.caption if msgs.caption else ""
@@ -117,14 +121,6 @@ async def connect(bot: Bot, update):
                         file_type = "video"
                     
                     elif msgs.audio:
-                        try:
-                            file_id = await bot.get_messages(channel_id, message_ids=msgs.message_id)
-                        except FloodWait as e:
-                            asyncio.sleep(e.x)
-                            file_id = await bot.get_messages(channel_id, message_ids=msgs.message_id)
-                        except Exception as e:
-                            print(e)
-                            continue
                         file_id = file_id.audio.file_id
                         file_name = msgs.audio.file_name[0:-4]
                         file_caption  = msgs.caption if msgs.caption else ""
@@ -132,19 +128,14 @@ async def connect(bot: Bot, update):
                         file_type = "audio"
                     
                     elif msgs.document:
-                        try:
-                            file_id = await bot.get_messages(channel_id, message_ids=msgs.message_id)
-                        except FloodWait as e:
-                            asyncio.sleep(e.x)
-                            file_id = await bot.get_messages(channel_id, message_ids=msgs.message_id)
-                        except Exception as e:
-                            print(str(e))
-                            continue
                         file_id = file_id.document.file_id
                         file_name = msgs.document.file_name[0:-4]
                         file_caption  = msgs.caption if msgs.caption else ""
                         file_size = msgs.document.file_size
                         file_type = "document"
+                    
+                    else:
+                        return
                     
                     for i in ["_", "|", "-", "."]: # Work Around
                         try:
@@ -205,7 +196,7 @@ async def disconnect(bot: Bot, update):
     
     if VERIFY.get(str(chat_id)) == None: # Make Admin's ID List
         admin_list = []
-        async for x in bot.iter_chat_members(chat_id=chat_id, filter="administrators"):
+        async for x in bot.get_chat_members(chat_id=chat_id, filter=enums.ChatMembersFilter.ADMINISTRATORS):
             admin_id = x.user.id 
             admin_list.append(admin_id)
         admin_list.append(None)
@@ -269,7 +260,7 @@ async def delall(bot: Bot, update):
     
     if VERIFY.get(str(chat_id)) == None: # Make Admin's ID List
         admin_list = []
-        async for x in bot.iter_chat_members(chat_id=chat_id, filter="administrators"):
+        async for x in bot.get_chat_members(chat_id=chat_id, filter=enums.ChatMembersFilter.ADMINISTRATORS):
             admin_id = x.user.id 
             admin_list.append(admin_id)
         admin_list.append(None)
@@ -284,7 +275,7 @@ async def delall(bot: Bot, update):
     await update.reply_text("Sucessfully Deleted All Connected Chats From This Group....")
 
 
-@Client.on_message(filters.channel & (filters.video | filters.audio | filters.document) & ~filters.edited, group=0)
+@Client.on_message(filters.channel & (filters.video | filters.audio | filters.document), group=0)
 async def new_files(bot: Bot, update):
     """
     A Funtion To Handle Incoming New Files In A Channel ANd Add Them To Respective Channels..

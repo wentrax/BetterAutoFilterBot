@@ -2,7 +2,7 @@ import re
 import time
 import asyncio
 
-from pyrogram import Client, filters
+from pyrogram import Client, filters, enums
 from pyrogram.errors import FloodWait, UserNotParticipant
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 
@@ -44,7 +44,7 @@ async def cb_navg(bot, update: CallbackQuery):
         
         admin_list = []
         
-        async for x in bot.iter_chat_members(chat_id=chat_id, filter="administrators"):
+        async for x in bot.get_chat_members(chat_id=chat_id, filter=enums.ChatMembersFilter.ADMINISTRATORS):
             admin_id = x.user.id 
             admin_list.append(admin_id)
             
@@ -148,15 +148,15 @@ async def cb_navg(bot, update: CallbackQuery):
         await update.message.edit(
                 text,
                 reply_markup=reply_markup,
-                parse_mode="html"
+                parse_mode=enums.ParseMode.HTML
         )
         
     except FloodWait as f: # Flood Wait Caused By Spamming Next/Back Buttons
-        await asyncio.sleep(f.x)
+        await asyncio.sleep(f.value)
         await update.message.edit(
                 text,
                 reply_markup=reply_markup,
-                parse_mode="html"
+                parse_mode=enums.ParseMode.HTML
         )
 
 
@@ -221,7 +221,7 @@ async def cb_settings(bot, update: CallbackQuery):
     await update.message.edit_text(
         text, 
         reply_markup=reply_markup, 
-        parse_mode="html"
+        parse_mode=enums.ParseMode.HTML
         )
 
 
@@ -281,7 +281,7 @@ async def cb_warn(bot, update: CallbackQuery):
     await update.message.edit_text(
         text,
         reply_markup=reply_markup,
-        parse_mode="html"
+        parse_mode=enums.ParseMode.HTML
     )
 
 
@@ -382,7 +382,7 @@ async def cb_channel_list(bot, update: CallbackQuery):
     await update.message.edit_text(
             text = text,
             reply_markup=reply_markup,
-            parse_mode="html"
+            parse_mode=enums.ParseMode.HTML
         )
 
 
@@ -480,7 +480,7 @@ async def cb_info(bot, update: CallbackQuery):
     reply_markup = InlineKeyboardMarkup(buttons)
         
     await update.message.edit_text(
-            text, reply_markup=reply_markup, parse_mode="html"
+            text, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML
         )
 
 
@@ -554,7 +554,7 @@ async def cb_connect(bot, update: CallbackQuery):
     reply_markup = InlineKeyboardMarkup(buttons)
         
     await update.message.edit_text(
-            text, reply_markup=reply_markup, parse_mode="html"
+            text, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML
         )
 
 
@@ -580,7 +580,7 @@ async def cb_disconnect(bot, update: CallbackQuery):
     remove_active = await db.del_active(chat_id, int(channel_id))
     
     if not remove_active:
-        await update.answer("Couldnt Full Fill YOur Request...\n Report This @jns_fc_bots Along With Bot's Log", show_alert=True)
+        await update.answer("Couldnt Full Fill YOur Request...\n Report This @CrazyBotszGrp Along With Bot's Log", show_alert=True)
         return
     
     text= f"<i>Sucessfully Disconnected From</i> <code>{channel_name}</code>\n"
@@ -627,7 +627,7 @@ async def cb_disconnect(bot, update: CallbackQuery):
     await recacher(chat_id, False, True, bot, update)
 
     await update.message.edit_text(
-            text, reply_markup=reply_markup, parse_mode="html"
+            text, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML
         )
 
 
@@ -679,7 +679,7 @@ async def cb_channel_delete(bot, update: CallbackQuery):
     reply_markup=InlineKeyboardMarkup(buttons)
 
     await update.message.edit_text(
-        text, reply_markup=reply_markup, parse_mode="html"
+        text, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML
     )
 
 
@@ -725,7 +725,7 @@ async def cb_filters_delete(bot, update: CallbackQuery):
     reply_markup = InlineKeyboardMarkup(buttons)
 
     await update.message.edit_text(
-        text, reply_markup=reply_markup, parse_mode="html"
+        text, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML
     )
     
 
@@ -809,7 +809,7 @@ async def cb_types(bot, update: CallbackQuery):
     await update.message.edit_text(
         text,
         reply_markup=reply_markup, 
-        parse_mode="html"
+        parse_mode=enums.ParseMode.HTML
     )
 
 
@@ -923,7 +923,7 @@ async def cb_toggle(bot, update: CallbackQuery):
     await update.message.edit_text(
         text,
         reply_markup=reply_markup, 
-        parse_mode="html"
+        parse_mode=enums.ParseMode.HTML
     )
 
 
@@ -1037,7 +1037,7 @@ async def cb_config(bot, update: CallbackQuery):
     await update.message.edit_text(
         text, 
         reply_markup=reply_markup, 
-        parse_mode="html"
+        parse_mode=enums.ParseMode.HTML
     )
 
 
@@ -1108,7 +1108,7 @@ async def cb_max_buttons(bot, update: CallbackQuery):
     reply_markup = InlineKeyboardMarkup(buttons)
 
     await update.message.edit_text(
-        text, reply_markup=reply_markup, parse_mode="html"
+        text, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML
     )
 
 
@@ -1175,7 +1175,7 @@ async def cb_max_page(bot, update: CallbackQuery):
     reply_markup = InlineKeyboardMarkup(buttons)
     
     await update.message.edit_text(
-        text, reply_markup=reply_markup, parse_mode="html"
+        text, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML
     )
 
 
@@ -1247,7 +1247,7 @@ async def cb_max_results(bot, update: CallbackQuery):
     reply_markup = InlineKeyboardMarkup(buttons)
 
     await update.message.edit_text(
-        text, reply_markup=reply_markup, parse_mode="html"
+        text, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML
     )
 
 
@@ -1308,7 +1308,7 @@ async def cb_show_invites(bot, update: CallbackQuery):
     await update.message.edit_text(
         text,
         reply_markup=reply_markup,
-        parse_mode="html"
+        parse_mode=enums.ParseMode.HTML
     )
 
 
@@ -1369,7 +1369,7 @@ async def cb_pm_file(bot, update: CallbackQuery):
     await update.message.edit_text(
         text,
         reply_markup=reply_markup,
-        parse_mode="html"
+        parse_mode=enums.ParseMode.HTML
     )
 
 
@@ -1444,7 +1444,7 @@ async def cb_accuracy(bot, update: CallbackQuery):
     reply_markup = InlineKeyboardMarkup(buttons)
 
     await update.message.edit_text(
-        text, reply_markup=reply_markup, parse_mode="html"
+        text, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML
     )
 
 
@@ -1536,7 +1536,7 @@ async def cb_set(bot, update: CallbackQuery):
     reply_markup=InlineKeyboardMarkup(buttons)
     
     await update.message.edit_text(
-        text, reply_markup=reply_markup, parse_mode="html"
+        text, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML
     )
 
 
@@ -1581,7 +1581,7 @@ async def cb_status(bot, update: CallbackQuery):
     reply_markup = InlineKeyboardMarkup(buttons)
     
     await update.message.edit_text(
-        text, reply_markup=reply_markup, parse_mode="html"
+        text, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML
     )
 
 
@@ -1601,14 +1601,14 @@ async def cb_about(bot, update: CallbackQuery):
     text=f"<i><u>Bot's Status</u></i>\n"
     text+=f"\n<b><i>Bot's Uptime:</i></b> <code>{time_formatter(time.time() - start_uptime)}</code>\n"
     text+=f"\n<b><i>Bot Funtion:</i></b> <i>Auto Filter Files</i>\n"
-    text+=f"""\n<b><i>Bot Support:</i></b> <a href="https://t.me/DFF_UPDATE">DFF BOTS DISCUSSION</a>\n"""
-    text+="""\n<b><i>Source Code:</i></b> <a href="https://t.me/githubsoursecode">Source</a>"""
+    text+=f"""\n<b><i>Bot Support:</i></b> <a href="https://t.me/CrazyBotszGrp">@CrazyBotszGrp</a>\n"""
+    text+="""\n<b><i>Source Code:</i></b> <a href="https://github.com/CrazyBotsz/Adv-Filter-Bot-V2">Source</a>"""
 
     buttons = [
         [
             InlineKeyboardButton
                 (
-                    "My Dev ⚡", url="https://t.me/DFF_UPDATE"
+                    "My Dev ⚡", url="https://t.me/AlbertEinstein_TG"
                 ),
                 
             InlineKeyboardButton
@@ -1627,7 +1627,7 @@ async def cb_about(bot, update: CallbackQuery):
     reply_markup = InlineKeyboardMarkup(buttons)
     
     await update.message.edit_text(
-        text, reply_markup=reply_markup, parse_mode="html"
+        text, reply_markup=reply_markup, parse_mode=enums.ParseMode.HTML
     )
 
 
@@ -1638,16 +1638,21 @@ async def callback_data(bot, update: CallbackQuery):
     query_data = update.data
 
     if query_data == "start":
-        buttons = [[              
-           InlineKeyboardButton('Help❔', callback_data="help")
-       ]]  
+        buttons = [[
+            InlineKeyboardButton('My Dev 👨‍🔬', url='https://t.me/AlbertEinstein_TG'),
+            InlineKeyboardButton('Source Code 🧾', url ='https://github.com/CrazyBotsz/Adv-Filter-Bot-V2')
+        ],[
+            InlineKeyboardButton('Support 🛠', url='https://t.me/CrazyBotszGrp')
+        ],[
+            InlineKeyboardButton('Help ⚙', callback_data="help")
+        ]]
     
         reply_markup = InlineKeyboardMarkup(buttons)
         
         await update.message.edit_text(
             Translation.START_TEXT.format(update.from_user.mention),
             reply_markup=reply_markup,
-            parse_mode="html",
+            parse_mode=enums.ParseMode.HTML,
             disable_web_page_preview=True
         )
 
@@ -1655,8 +1660,7 @@ async def callback_data(bot, update: CallbackQuery):
     elif query_data == "help":
         buttons = [[
             InlineKeyboardButton('Home ⚡', callback_data='start'),
-        ],[
-            InlineKeyboardButton('How to owm 🤔', callback_data='about')
+            InlineKeyboardButton('About 🚩', callback_data='about')
         ],[
             InlineKeyboardButton('Close 🔐', callback_data='close')
         ]]
@@ -1666,17 +1670,14 @@ async def callback_data(bot, update: CallbackQuery):
         await update.message.edit_text(
             Translation.HELP_TEXT,
             reply_markup=reply_markup,
-            parse_mode="html",
+            parse_mode=enums.ParseMode.HTML,
             disable_web_page_preview=True
         )
-            
+
 
     elif query_data == "about": 
         buttons = [[
             InlineKeyboardButton('Home ⚡', callback_data='start'),
-        ],[
-            InlineKeyboardButton('Deploy To Heroku', url='https://tinyurl.com/yxtho3zv'),
-        ],[
             InlineKeyboardButton('Close 🔐', callback_data='close')
         ]]
         
@@ -1685,7 +1686,7 @@ async def callback_data(bot, update: CallbackQuery):
         await update.message.edit_text(
             Translation.ABOUT_TEXT,
             reply_markup=reply_markup,
-            parse_mode="html"
+            parse_mode=enums.ParseMode.HTML
         )
 
 
