@@ -449,7 +449,7 @@ class Database(metaclass=Singleton):
         raw_pattern = r"\b{}\b".format(pattern)
         regex = re.compile(raw_pattern, flags=re.IGNORECASE)
                 
-        db_list = self.fcol.find({"file_name": regex})
+        db_list = self.fcol.find({"group_id": group_id,"file_name": regex})
         
         for document in await db_list.to_list(length=600):
             
@@ -476,7 +476,7 @@ class Database(metaclass=Singleton):
             file_id = file.get("file_id")
             file_name = file.get("file_name")
             file_type = file.get("file_type")
-            file_caption = file.get("file_caption")
+            file_caption = file.get("caption")
         return file_id, file_name, file_caption, file_type
 
 
