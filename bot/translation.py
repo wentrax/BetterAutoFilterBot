@@ -38,19 +38,12 @@ class Translation(object):
             -> <code>Status</code> - Button Will Shows The Stats Of Your Channel
 
 
-© <b>@DFF_UPDATE</b>        
+© <b>@DFF_UPDATES</b>        
 """
     
     ABOUT_TEXT = """
-<b>Deploy</b>
+➡️ Repo: https://github.com/0AIB/BetterAutoFilterBot
 
-<i>●You can't use this bot so deploy your own bot.
-●You can deploy this bot anywhere.</i>
 
-<i>⚠️ Watch Deploying Tutorial...
-- https://youtu.be/KTearEPhumc</i>
-
-➡️ Repo: https://github.com/DFF01/BetterAutoFilterBot
-
-© <b>@DFF_UPDATE</b>
+© <b>@DFF_UPDATES</b>
 """ 
