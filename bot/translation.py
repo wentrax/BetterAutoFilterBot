@@ -44,6 +44,6 @@ class Translation(object):
     ABOUT_TEXT = """
 ➡️ Repo: https://github.com/0AIB/BetterAutoFilterBot
 
-
+Language: python3
 © <b>@DFF_UPDATES</b>
 """ 
