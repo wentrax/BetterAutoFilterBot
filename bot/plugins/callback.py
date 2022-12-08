@@ -580,7 +580,7 @@ async def cb_disconnect(bot, update: CallbackQuery):
     remove_active = await db.del_active(chat_id, int(channel_id))
     
     if not remove_active:
-        await update.answer("Couldnt Full Fill YOur Request...\n Report This @CrazyBotszGrp Along With Bot's Log", show_alert=True)
+        await update.answer("Couldnt Full Fill YOur Request...\n Report This @Hollywood_0980 Along With Bot's Log", show_alert=True)
         return
     
     text= f"<i>Sucessfully Disconnected From</i> <code>{channel_name}</code>\n"
@@ -1601,8 +1601,8 @@ async def cb_about(bot, update: CallbackQuery):
     text=f"<i><u>Bot's Status</u></i>\n"
     text+=f"\n<b><i>Bot's Uptime:</i></b> <code>{time_formatter(time.time() - start_uptime)}</code>\n"
     text+=f"\n<b><i>Bot Funtion:</i></b> <i>Auto Filter Files</i>\n"
-    text+=f"""\n<b><i>Bot Support:</i></b> <a href="https://t.me/CrazyBotszGrp">@CrazyBotszGrp</a>\n"""
-    text+="""\n<b><i>Source Code:</i></b> <a href="https://github.com/CrazyBotsz/Adv-Filter-Bot-V2">Source</a>"""
+    text+=f"""\n<b><i>Bot Support:</i></b> <a href="https://t.me/Hollywood_0980">@Hollywood_0980</a>\n"""
+    text+="""\n<b><i>Source Code:</i></b> <a href="https://github.com/0AIB/BetterAutoFilterBot">Source</a>"""
 
     buttons = [
         [
@@ -1639,10 +1639,10 @@ async def callback_data(bot, update: CallbackQuery):
 
     if query_data == "start":
         buttons = [[
-            InlineKeyboardButton('My Dev 👨‍🔬', url='https://t.me/AlbertEinstein_TG'),
-            InlineKeyboardButton('Source Code 🧾', url ='https://github.com/CrazyBotsz/Adv-Filter-Bot-V2')
+            InlineKeyboardButton('My Dev 👨‍🔬', url='https://t.me/DFF_UPDATES'),
+            InlineKeyboardButton('Source Code 🧾', url ='https://github.com/0AIB/BetterAutoFilterBot')
         ],[
-            InlineKeyboardButton('Support 🛠', url='https://t.me/CrazyBotszGrp')
+            InlineKeyboardButton('Support 🛠', url='https://t.me/Hollywood_0980')
         ],[
             InlineKeyboardButton('Help ⚙', callback_data="help")
         ]]
