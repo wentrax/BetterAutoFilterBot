@@ -1,5 +1,5 @@
 [![DFF](https://telegra.ph/file/56e8bec48bcf6085e77b7.jpg)](https://t.me/BetterAutoFilterBot)
-[![DFF](https://telegra.ph/file/37885c57e33230f9bc2b1.jpg)](https://t.me/DFF_UPDATE)[![DFF](https://telegra.ph/file/c2b6926a7bff833a26d79.jpg)](https://t.me/Hollywood_0980)
+[![DFF](https://telegra.ph/file/37885c57e33230f9bc2b1.jpg)](https://t.me/DFF_UPDATES)[![DFF](https://telegra.ph/file/c2b6926a7bff833a26d79.jpg)](https://t.me/Hollywood_0980)
 # BetterAutoFilterBot
  
 __This Is Just An Simple Advance Auto Filter Bot 
@@ -49,25 +49,6 @@ OR
 * ->__Your User Session String Obtained From [@JNS_tg_orgbot](http://www.telegram.dog/JNS_tg_orgbot)__
 
 * ->__Mongo DB URL Obtained From [Mongo DB](http://www.mongodb.com)__
-
-#### PR's Are Very Welcome
-
-## Deploy
-You can deploy this bot anywhere.
-
-<i>**[Watch Deploying Tutorial...](https://youtu.be/KTearEPhumc)**</i>
-
-[![DFF](https://telegra.ph/file/77819ffdc3697fe1a62f8.jpg)](https://heroku.com/deploy?template=https://github.com/DFF01/BetterAutoFilterBot) 
-
-----
-
-<p align="center">
-
-## Support   
-Join Our [Telegram Group](https://www.telegram.dog/CrazyBotszGrp) For Support/Assistance And Our [Channel](https://www.telegram.dog/CrazyBotsz) For Updates.   
-   
-Report Bugs, Give Feature Requests There..   
-Do Fork And Star The Repository If You Liked It.
 
 ## Disclaimer
 [![GNU Affero General Public License v3.0](https://www.gnu.org/graphics/agplv3-155x51.png)](https://www.gnu.org/licenses/agpl-3.0.en.html#header)    
