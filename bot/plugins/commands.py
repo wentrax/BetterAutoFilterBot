@@ -35,7 +35,7 @@ async def start(bot, update):
                         [
                             InlineKeyboardButton
                                 (
-                                    'Developers', url="https://t.me/DFF_UPDATES"
+                                    'Developers', url="https://t.me/Lx0980AI"
                                 )
                         ]
                     ]
@@ -47,7 +47,7 @@ async def start(bot, update):
         return
 
     buttons = [[
-        InlineKeyboardButton('Developers', url='https:/t.me/DFF_UPDATES'),
+        InlineKeyboardButton('Developers', url='https:/t.me/Lx0980AI'),
         InlineKeyboardButton('Source Code 🧾', url ='https://github.com/0AIB/BetterAutoFilterBot')
     ],[
         InlineKeyboardButton('Support 🛠', url='https://t.me/Hollywood_0980')
