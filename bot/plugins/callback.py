@@ -1640,7 +1640,7 @@ async def callback_data(bot, update: CallbackQuery):
     if query_data == "start":
         buttons = [[
             InlineKeyboardButton('My Dev 👨‍🔬', url='https://t.me/Lx0980AI'),
-            InlineKeyboardButton('Source Code 🧾', url ='https://github.com/0AIB/BetterAutoFilterBot')
+            InlineKeyboardButton('Source Code 🧾', url ='https://github.com/0AIB')
         ],[
             InlineKeyboardButton('Support 🛠', url='https://t.me/Hollywood_0980')
         ],[
