@@ -28,7 +28,7 @@ async def start(bot, update):
             await update.reply_cached_media(
                 file_id,
                 quote=True,
-                caption = caption + "\n\n" + "<b>➠ @Hollywood_0980\n➠ @DFF_UPDATES</b>",
+                caption = caption,
                 parse_mode=enums.ParseMode.HTML,
                 reply_markup=InlineKeyboardMarkup(
                     [
