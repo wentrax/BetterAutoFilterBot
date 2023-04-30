@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# (c) @AlbertEinsteinTG
+# (c) @wentrax
 
 from pyrogram import filters, Client, enums
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
@@ -48,7 +48,7 @@ async def start(bot, update):
 
     buttons = [[
         InlineKeyboardButton('Developers', url='https:/t.me/Lx0980AI'),
-        InlineKeyboardButton('Source Code 🧾', url ='https://github.com/0AIB/BetterAutoFilterBot')
+        InlineKeyboardButton('Source Code 🧾', url ='https://github.com/0AIB')
     ],[
         InlineKeyboardButton('Support 🛠', url='https://t.me/Hollywood_0980')
     ],[
