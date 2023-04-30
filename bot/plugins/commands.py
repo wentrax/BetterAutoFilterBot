@@ -30,7 +30,7 @@ async def start(bot, update):
             await bot.send_document(
                 chat_id=update.chat.id,
                 document = file_id,
-                caption = update.caption,
+                caption = f"**{update.caption}**".replace("@DFF_UPDATE", "@DFF_UPDATES"),
                 parse_mode=enums.ParseMode.HTML,
                 reply_to_message_id=update.id,
                 reply_markup=InlineKeyboardMarkup(
@@ -50,14 +50,14 @@ async def start(bot, update):
             await bot.send_video(
                 chat_id=update.chat.id,
                 video = file_id,
-                caption = update.caption,
+                caption = f"**{update.caption}**".replace("@DFF_UPDATE", "@DFF_UPDATES"),
                 parse_mode=enums.ParseMode.HTML,
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
                             InlineKeyboardButton
                                 (
-                                    'Developers', url="https://t.me/DFF_UPDATE"
+                                    'Developers', url="https://t.me/Lx0980AI"
                                 )
                         ]
                     ]
@@ -69,14 +69,14 @@ async def start(bot, update):
             await bot.send_audio(
                 chat_id=update.chat.id,
                 audio = file_id,
-                caption = update.caption,
+                caption = f"**{update.caption}**".replace("@DFF_UPDATE", "@DFF_UPDATES"),
                 parse_mode=enums.ParseMode.HTML,
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
                             InlineKeyboardButton
                                 (
-                                    'Developers', url="https://t.me/DFF_Update"
+                                    'Developers', url="https://t.me/Lx0980AI"
                                 )
                         ]
                     ]
