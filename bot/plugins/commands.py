@@ -23,34 +23,12 @@ async def start(bot, update):
         if (file_id or file_type) == None:
             return
         
-        caption = file_caption if file_caption != ("" or None) else (f"<code>{file_name}</code>\n\n<b>➠ @Hollywood_0980\n➠ @DFF_UPDATES</b>")
-
-        if file_type == "document":
-           
-            await bot.send_document(
-                chat_id=update.chat.id,
-                document = file_id,
-                caption = caption,
-                parse_mode=enums.ParseMode.HTML,
-                reply_to_message_id=update.id,
-                reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton
-                                (
-                                    'Developers', url="https://t.me/Lx0980AI"
-                                )
-                        ]
-                    ]
-                )
-            )
-
-        elif file_type == "video":
-         
-            await bot.send_video(
-                chat_id=update.chat.id,
-                video = file_id,
-                caption = caption,
+        caption = file_caption if file_caption != ("" or None) else ("<code>" + file_name + "</code>")
+        try:
+            await update.reply_cached_media(
+                file_id,
+                quote=True,
+                caption = caption + "\n\n" + "<b>➠ @Hollywood_0980\n➠ @DFF_UPDATES</b>",
                 parse_mode=enums.ParseMode.HTML,
                 reply_markup=InlineKeyboardMarkup(
                     [
@@ -63,29 +41,9 @@ async def start(bot, update):
                     ]
                 )
             )
-            
-        elif file_type == "audio":
-        
-            await bot.send_audio(
-                chat_id=update.chat.id,
-                audio = file_id,
-                caption = caption,
-                parse_mode=enums.ParseMode.HTML,
-                reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton
-                                (
-                                    'Developers', url="https://t.me/Lx0980AI"
-                                )
-                        ]
-                    ]
-                )
-            )
-
-        else:
-            print(file_type)
-        
+        except Exception as e:
+            await update.reply_text(f"<b>Error:</b>\n<code>{e}</code>", True, parse_mode=enums.ParseMode.HTML)
+            LOGGER(__name__).error(e)
         return
 
     buttons = [[
