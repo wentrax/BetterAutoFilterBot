@@ -24,12 +24,15 @@ async def start(bot, update):
             return
         
         caption = file_caption if file_caption != ("" or None) else ("<code>" + file_name + "</code>")
-        try:
-            await update.reply_cached_media(
-                file_id,
-                quote=True,
-                caption = f"**{update.caption}**".replace("@DFF_UPDATE", "@DFF_UPDATES"),
+
+        if file_type == "document":
+           
+            await bot.send_document(
+                chat_id=update.chat.id,
+                document = file_id,
+                caption = caption,
                 parse_mode=enums.ParseMode.HTML,
+                reply_to_message_id=update.id,
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
@@ -41,9 +44,48 @@ async def start(bot, update):
                     ]
                 )
             )
-        except Exception as e:
-            await update.reply_text(f"<b>Error:</b>\n<code>{e}</code>", True, parse_mode=enums.ParseMode.HTML)
-            LOGGER(__name__).error(e)
+
+        elif file_type == "video":
+         
+            await bot.send_video(
+                chat_id=update.chat.id,
+                video = file_id,
+                caption = caption,
+                parse_mode=enums.ParseMode.HTML,
+                reply_markup=InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton
+                                (
+                                    'Developers', url="https://t.me/DFF_UPDATE"
+                                )
+                        ]
+                    ]
+                )
+            )
+            
+        elif file_type == "audio":
+        
+            await bot.send_audio(
+                chat_id=update.chat.id,
+                audio = file_id,
+                caption = caption,
+                parse_mode=enums.ParseMode.HTML,
+                reply_markup=InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton
+                                (
+                                    'Developers', url="https://t.me/DFF_Update"
+                                )
+                        ]
+                    ]
+                )
+            )
+
+        else:
+            print(file_type)
+        
         return
 
     buttons = [[
