@@ -1,6 +1,6 @@
 Dnspython
 Motor
-Pyrogram
+Pyrogram==2.0.30
 Pymongo
 Requests 
 TgCrypto
