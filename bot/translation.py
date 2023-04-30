@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# (c) @AlbertEinsteinTG
+# (c) @wentrax
 
 class Translation(object):
     
@@ -38,12 +38,16 @@ class Translation(object):
             -> <code>Status</code> - Button Will Shows The Stats Of Your Channel
 
 
-© <b>@DFF_UPDATES</b>        
+© <b>@Lx0980AI</b>        
 """
     
-    ABOUT_TEXT = """
-➡️ Repo: https://github.com/0AIB/BetterAutoFilterBot
+    ABOUT_TEXT =  """<b>➥ Name</b> : <code> Auto Filter Bot</code>
+    
+<b>➥ Creator</b> : <b><i><a href="https://t.me/Lx0980AI">Lx0980</a></i></b>
 
-Language: python3
-© <b>@DFF_UPDATES</b>
-""" 
+<b>➥ Language</b> : <code>Python 3</code>
+
+<b>➥ Library</b> : <i><a href="https://docs.pyrogram.org">Pyrogram</a></i>
+"""
+
+
